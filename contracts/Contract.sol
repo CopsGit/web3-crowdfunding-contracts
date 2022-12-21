@@ -28,7 +28,7 @@ contract contractCF {
         Campaign storage campaign = campaigns[numberOfCampaigns];
 
         //is everything ok with this?
-        require(campaign.deadline > block.timestamp, "Campaign has expired");
+//        require(campaign.deadline > block.timestamp, "Campaign has expired");
 
         campaign.owner = _owner;
         campaign.title = _title;
