@@ -27,9 +27,6 @@ contract contractCF {
     ) public returns (uint256) {
         Campaign storage campaign = campaigns[numberOfCampaigns];
 
-        //is everything ok with this?
-//        require(campaign.deadline > block.timestamp, "Campaign has expired");
-
         campaign.owner = _owner;
         campaign.title = _title;
         campaign.description = _description;
@@ -44,6 +41,11 @@ contract contractCF {
     }
 
     function donateToCampaign(uint256 _id) public payable {
+        require(
+            campaigns[_id].deadline > block.timestamp,
+            "The funding period has expired."
+        );
+
         uint256 amount = msg.value;
 
         Campaign storage campaign = campaigns[_id];
@@ -70,7 +72,6 @@ contract contractCF {
     }
 
     function getCampaigns() public view returns (Campaign[] memory) {
-
         //[{}, {}, {}]
         Campaign[] memory allCampaigns = new Campaign[](numberOfCampaigns);
         for (uint256 i = 0; i < numberOfCampaigns; i++) {
