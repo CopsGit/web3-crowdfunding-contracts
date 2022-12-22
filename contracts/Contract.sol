@@ -10,6 +10,7 @@ contract contractCF {
         uint256 deadline;
         uint256 amountCollected;
         string image;
+        bool isActive;
         address[] donators;
         uint256[] donations;
     }
@@ -34,6 +35,7 @@ contract contractCF {
         campaign.deadline = _deadline;
         campaign.amountCollected = 0;
         campaign.image = _image;
+        campaign.isActive = true;
 
         numberOfCampaigns++;
 
@@ -44,6 +46,10 @@ contract contractCF {
         require(
             campaigns[_id].deadline > block.timestamp,
             "The funding period has expired."
+        );
+        require(
+            campaigns[_id].isActive == true,
+            "The campaign is no longer active."
         );
 
         uint256 amount = msg.value;
@@ -78,5 +84,17 @@ contract contractCF {
             allCampaigns[i] = campaigns[i];
         }
         return allCampaigns;
+    }
+
+    function activeStatusCampaign(
+        uint256 _id,
+        address _owner,
+        bool _isActive
+    ) public {
+        require(
+            campaigns[_id].owner == _owner,
+            "You are not the owner of this campaign."
+        );
+        campaigns[_id].isActive = _isActive;
     }
 }
