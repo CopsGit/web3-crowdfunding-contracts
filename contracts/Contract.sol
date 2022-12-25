@@ -77,26 +77,6 @@ contract contractCF {
         );
     }
 
-//    function getCampaignsDonatedTo(address _donator)
-//        public
-//        view
-//        returns (uint256[] memory)
-//    {
-//        uint256[] memory campaignsDonatedTo = new uint256[](numberOfCampaigns);
-//        uint256 counter = 0;
-//
-//        for (uint256 i = 0; i < numberOfCampaigns; i++) {
-//            for (uint256 j = 0; j < campaigns[i].donators.length; j++) {
-//                if (campaigns[i].donators[j] == _donator) {
-//                    campaignsDonatedTo[counter] = i;
-//                    counter++;
-//                }
-//            }
-//        }
-//
-//        return campaignsDonatedTo;
-//    }
-
     function getCampaigns() public view returns (Campaign[] memory) {
         //[{}, {}, {}]
         Campaign[] memory allCampaigns = new Campaign[](numberOfCampaigns);
@@ -116,5 +96,11 @@ contract contractCF {
             "You are not the owner of this campaign."
         );
         campaigns[_id].isActive = _isActive;
+    }
+
+    function restoreDataFromOldContract(address _oldContractAddress) public {
+        contractCF oldContract = contractCF(_oldContractAddress);
+        Campaign[] memory oldCampaigns = oldContract.getCampaigns();
+
     }
 }
