@@ -8,6 +8,7 @@ contract contractCF {
         string description;
         uint256 target;
         uint256 deadline;
+        uint256 createdAt;
         uint256 amountCollected;
         string image;
         bool isActive;
@@ -24,6 +25,7 @@ contract contractCF {
         string memory _description,
         uint256 _target,
         uint256 _deadline,
+        uint256 _createdAt,
         string memory _image
     ) public returns (uint256) {
         Campaign storage campaign = campaigns[numberOfCampaigns];
@@ -33,6 +35,7 @@ contract contractCF {
         campaign.description = _description;
         campaign.target = _target;
         campaign.deadline = _deadline;
+        campaign.createdAt = _createdAt;
         campaign.amountCollected = 0;
         campaign.image = _image;
         campaign.isActive = true;
